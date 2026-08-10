@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://dvyvqmwl71twq"]
+
+[ext_resource type="Script" uid="uid://bt7u0hl2hbw0u" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://b8jnm0bs5kc08" path="res://icon.svg" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dvqttrcd1b5i" path="res://player/player.tscn" id="2_h2yge"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_h2yge"]
+sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
+
+[sub_resource type="Environment" id="Environment_1bvp3"]
+background_mode = 2
+sky = SubResource("Sky_h2yge")
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lquwl"]
+albedo_texture = ExtResource("1_ig7tw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g4v7s"]
+size = Vector2(100, 100)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_g4v7s"]
+
+[node name="Main" type="Node3D" unique_id=1929679432]
+script = ExtResource("1_0xm2m")
+player_scene = ExtResource("2_h2yge")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1860549189]
+environment = SubResource("Environment_1bvp3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=475097773]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=107415479]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=998706165]
+material_override = SubResource("StandardMaterial3D_lquwl")
+mesh = SubResource("PlaneMesh_g4v7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=44853707]
+shape = SubResource("WorldBoundaryShape3D_g4v7s")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1095414894]
+transform = Transform3D(1, 0, 0, 0, 0.8006168, 0.59917676, 0, -0.59917676, 0.8006168, 0, 19.651356, 47.540207)
+
+[node name="SpawnPoints" type="Node3D" parent="." unique_id=31703186]
+
+[node name="Marker3D" type="Marker3D" parent="SpawnPoints" unique_id=1094687840]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.000559, 2.9230137, 8.256422)
+gizmo_extents = 4.1
+
+[node name="Marker3D2" type="Marker3D" parent="SpawnPoints" unique_id=1100271678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09002113, 2.9230137, 23.874376)
+gizmo_extents = 4.1
+
+[node name="Marker3D3" type="Marker3D" parent="SpawnPoints" unique_id=204802442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.32673, 2.9230137, 7.8357105)
+gizmo_extents = 4.1
+
+[node name="Players" type="Node3D" parent="." unique_id=1673303015]
