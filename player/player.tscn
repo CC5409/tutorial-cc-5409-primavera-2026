@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dvqttrcd1b5i"]
 
 [ext_resource type="Script" uid="uid://c0mfssq7djyfi" path="res://player/player.gd" id="1_oul6g"]
+[ext_resource type="PackedScene" uid="uid://b6twwagl0nbht" path="res://weapons/bullet.tscn" id="2_g1dw6"]
+[ext_resource type="PackedScene" uid="uid://djs71plartett" path="res://input_synchronizer.tscn" id="2_rkbax"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 
@@ -9,25 +11,65 @@
 [sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
 size = Vector3(0.1, 0.1, 0.50024414)
 
+[sub_resource type="BoxMesh" id="BoxMesh_yf5fn"]
+size = Vector3(0.12866211, 0.1015625, 0.3828125)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yw30f"]
+size = Vector3(0.12866211, 0.18457031, 0.06542969)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rkbax"]
+properties/0/path = NodePath("SpringArm3D:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Player" type="CharacterBody3D" unique_id=1833661411]
 script = ExtResource("1_oul6g")
+bullet_scene = ExtResource("2_g1dw6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=377414407]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_g4v7s")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1486500681]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_yf5fn")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=638131900]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47632074, -0.78538036)
-mesh = SubResource("BoxMesh_g4v7s")
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=279090637]
-transform = Transform3D(1, 0, 0, 0, 0.98016196, 0.19819811, 0, -0.19819811, 0.98016196, 0, 2.3153667, 1.1847949)
-
 [node name="Label3D" type="Label3D" parent="." unique_id=453859638]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4174974, 0)
 billboard = 1
 text = "asdfasdf"
+
+[node name="InputSynchronizer" parent="." unique_id=1163469307 instance=ExtResource("2_rkbax")]
+
+[node name="SyncTimer" type="Timer" parent="." unique_id=48783372]
+wait_time = 0.1
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1442263419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.765044, 0)
+spring_length = 4.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=279090637]
+
+[node name="Model" type="Node3D" parent="." unique_id=25733260]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Model" unique_id=1486500681]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_yf5fn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Model/MeshInstance3D" unique_id=638131900]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47632074, -0.78538036)
+mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Model" unique_id=1990155354]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6891893, 1.3928865, -1.1920929e-07)
+mesh = SubResource("BoxMesh_yf5fn")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Model/MeshInstance3D2" unique_id=1253227986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.041503906, 0.07458496)
+mesh = SubResource("BoxMesh_yw30f")
+
+[node name="BulletSpawnMarker" type="Marker3D" parent="Model/MeshInstance3D2" unique_id=376196086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.19564447)
+gizmo_extents = 1.45
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1618864756]
+replication_config = SubResource("SceneReplicationConfig_rkbax")
+
+[node name="BulletSpawner" type="MultiplayerSpawner" parent="." unique_id=902326863]
+spawn_path = NodePath(".")
