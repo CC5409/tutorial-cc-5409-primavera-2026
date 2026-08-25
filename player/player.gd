@@ -18,6 +18,7 @@ extends CharacterBody3D
 @onready var model: Node3D = $Model
 @onready var bullet_spawner: MultiplayerSpawner = $BulletSpawner
 @onready var bullet_spawn_marker: Marker3D = $Model/MeshInstance3D2/BulletSpawnMarker
+@onready var animation_player: AnimationPlayer = $Model/turtle/AnimationPlayer
 
 
 func _ready() -> void:
@@ -66,6 +67,9 @@ func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
 		if Input.is_action_just_pressed("fire"):
 			_fire()
+		
+		if Input.is_action_just_pressed("fire"):
+			animation_player.play("idle")
 	
 	
 	if not is_on_floor():

@@ -3,13 +3,10 @@
 [ext_resource type="Script" uid="uid://c0mfssq7djyfi" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="PackedScene" uid="uid://b6twwagl0nbht" path="res://weapons/bullet.tscn" id="2_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://djs71plartett" path="res://input_synchronizer.tscn" id="2_rkbax"]
+[ext_resource type="PackedScene" uid="uid://c4h172mhuk5un" path="res://assets/turtle.glb" id="4_qjkh3"]
+[ext_resource type="AnimationLibrary" uid="uid://r02f3b4immhn" path="res://assets/turtle_animations.glb" id="5_g6k8r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_yf5fn"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
-size = Vector3(0.1, 0.1, 0.50024414)
 
 [sub_resource type="BoxMesh" id="BoxMesh_yf5fn"]
 size = Vector3(0.12866211, 0.1015625, 0.3828125)
@@ -48,13 +45,11 @@ spring_length = 4.0
 
 [node name="Model" type="Node3D" parent="." unique_id=25733260]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Model" unique_id=1486500681]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_yf5fn")
+[node name="turtle" parent="Model" unique_id=1912569292 instance=ExtResource("4_qjkh3")]
+transform = Transform3D(-0.525, 0, -4.5896957e-08, 0, 0.525, 0, 4.5896957e-08, 0, -0.525, 0, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Model/MeshInstance3D" unique_id=638131900]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47632074, -0.78538036)
-mesh = SubResource("BoxMesh_g4v7s")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Model/turtle" unique_id=1787382681]
+libraries/ = ExtResource("5_g6k8r")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Model" unique_id=1990155354]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6891893, 1.3928865, -1.1920929e-07)
