@@ -18,10 +18,12 @@ extends CharacterBody3D
 @onready var model: Node3D = $Model
 @onready var bullet_spawner: MultiplayerSpawner = $BulletSpawner
 @onready var bullet_spawn_marker: Marker3D = $Model/MeshInstance3D2/BulletSpawnMarker
-@onready var animation_player: AnimationPlayer = $Model/turtle/AnimationPlayer
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 
 
 func _ready() -> void:
+	animation_tree.active = true
 	bullet_spawner.spawn_function = _spawn_bullet
 	sync_timer.timeout.connect(_on_sync_timeout)
 	var player_data: Statics.PlayerData = Game.instance.get_player(get_multiplayer_authority())
@@ -67,16 +69,13 @@ func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
 		if Input.is_action_just_pressed("fire"):
 			_fire()
-		
-		if Input.is_action_just_pressed("fire"):
-			animation_player.play("idle")
 	
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	
-	if is_on_floor() and input_synchronizer.jump:
-		velocity.y = jump_speed
+	if input_synchronizer.jump:
+		if is_on_floor():
+			velocity.y = jump_speed
 		input_synchronizer.jump = false
 	
 	var move_input: Vector2 = input_synchronizer.move_input
@@ -98,13 +97,20 @@ func _physics_process(delta: float) -> void:
 			spring_arm_3d.rotation.y,
 			0.1
 		)
-
+	
+	# animation
+	#if velocity.length_squared() < 2:
+		#playback.travel("idle")
+	#else:
+		#playback.travel("walk")
+	animation_tree["parameters/locomotion/blend_position"] = velocity.length()
 
 
 func _on_sync_timeout() -> void:
-	_sync(global_position, velocity)
+	_sync.rpc(global_position, velocity)
 
 
+@rpc()
 func _sync(pos: Vector3, vel: Vector3) -> void:
 	global_position = global_position.lerp(pos, 0.5)
 	velocity = velocity.lerp(vel, 0.5)

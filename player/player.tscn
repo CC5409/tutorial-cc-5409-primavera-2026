@@ -19,6 +19,47 @@ properties/0/path = NodePath("SpringArm3D:rotation")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qjkh3"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_boad6"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rgyib"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_hg6s5"]
+min_space = 0.0
+max_space = 5.0
+blend_point_0/node = SubResource("AnimationNodeAnimation_boad6")
+blend_point_0/pos = 0.0
+blend_point_0/name = &"idle"
+blend_point_1/node = SubResource("AnimationNodeAnimation_rgyib")
+blend_point_1/pos = 4.5
+blend_point_1/name = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g6k8r"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rgyib"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hg6s5"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qjkh3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_g4v7s"]
+states/idle/node = SubResource("AnimationNodeAnimation_qjkh3")
+states/idle/position = Vector2(462.80002, 129.112)
+states/locomotion/node = SubResource("AnimationNodeBlendSpace1D_hg6s5")
+states/locomotion/position = Vector2(534.8, 223.8)
+states/walk/node = SubResource("AnimationNodeAnimation_g6k8r")
+states/walk/position = Vector2(647.60004, 129.752)
+transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_rgyib"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_hg6s5"), "Start", "locomotion", SubResource("AnimationNodeStateMachineTransition_qjkh3")]
+graph_offset = Vector2(105, 42)
+
 [node name="Player" type="CharacterBody3D" unique_id=1833661411]
 script = ExtResource("1_oul6g")
 bullet_scene = ExtResource("2_g1dw6")
@@ -68,3 +109,9 @@ replication_config = SubResource("SceneReplicationConfig_rkbax")
 
 [node name="BulletSpawner" type="MultiplayerSpawner" parent="." unique_id=902326863]
 spawn_path = NodePath(".")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1392344899]
+root_node = NodePath("../Model/turtle")
+tree_root = SubResource("AnimationNodeStateMachine_g4v7s")
+anim_player = NodePath("../Model/turtle/AnimationPlayer")
+parameters/locomotion/blend_position = 2.3854396

@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bv6q5jslojit2"]
+
+[ext_resource type="Script" uid="uid://clxc66bhnk68b" path="res://gameplay/tower.gd" id="1_g0dgo"]
+[ext_resource type="PackedScene" uid="uid://0l5tdwwy2aev" path="res://assets/tower.glb" id="1_hca3l"]
+[ext_resource type="PackedScene" uid="uid://byxjtm02ixo60" path="res://gameplay/interaction_area.tscn" id="3_hr6li"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(2.7226563, 4.1797333, 2.1298828)
+
+[node name="Tower" type="Node3D" unique_id=1993968151]
+script = ExtResource("1_g0dgo")
+
+[node name="Model" type="Node3D" parent="." unique_id=266933388]
+
+[node name="tower" parent="Model" unique_id=296403925 instance=ExtResource("1_hca3l")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.8698556e-07, 0, -2.1388655)
+
+[node name="Skeleton3D" parent="Model/tower" index="0" unique_id=466229560]
+bones/0/position = Vector3(0, 0.13903213, -2.9256911)
+bones/1/rotation = Quaternion(0, 0, -0.5384998, 0.8426257)
+bones/3/rotation = Quaternion(0, 0, 0.5384998, 0.8426257)
+
+[node name="InteractionArea" parent="." unique_id=2001623820 node_paths=PackedStringArray("label") instance=ExtResource("3_hr6li")]
+label = NodePath("Label3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=1846817544]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0646133, -0.5649414)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="Label3D" type="Label3D" parent="InteractionArea" unique_id=411345010]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.315826, -1.2272989)
+billboard = 1
+no_depth_test = true
+modulate = Color(0.8493997, 0.76521146, 0.9966424, 1)
+text = "Press E"
+font_size = 120
+
+[editable path="Model/tower"]
