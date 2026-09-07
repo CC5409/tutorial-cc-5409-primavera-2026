@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Debug="*uid://oa2coys8b0bf"
 Game="uid://b6cfq0qe7ynw6"
 Lobby="uid://bpbc81lwktlxs"
+LevelManager="uid://qd5xj1x72jk8"
 
 [debug]
 

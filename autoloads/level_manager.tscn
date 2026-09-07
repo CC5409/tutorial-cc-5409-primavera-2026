@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://qd5xj1x72jk8"]
+
+[ext_resource type="Script" uid="uid://rr6vnr7tio61" path="res://autoloads/level_manager.gd" id="1_swoet"]
+[ext_resource type="PackedScene" uid="uid://dj66nte78u87x" path="res://ui/credits.tscn" id="4_stu7j"]
+
+[node name="LevelManager" type="Node" unique_id=2090137490]
+script = ExtResource("1_swoet")
+credits = ExtResource("4_stu7j")

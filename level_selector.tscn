@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://deej70ds3d4w0"]
+
+[ext_resource type="Script" uid="uid://dsk8oknctp7vt" path="res://level_selector.gd" id="1_5xyw6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+font_size = 48
+
+[node name="LevelSelector" type="Control" unique_id=416857070]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5xyw6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=310595460]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.0
+offset_top = -63.5
+offset_right = 202.0
+offset_bottom = 63.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1317036607]
+layout_mode = 2
+text = "LEVELS"
+label_settings = SubResource("LabelSettings_g4v7s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=2103202587]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 3

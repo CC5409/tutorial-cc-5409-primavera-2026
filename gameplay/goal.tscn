@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://ck3vwoj1k5mte"]
+
+[ext_resource type="PackedScene" uid="uid://bvjayb4pi2u7e" path="res://assets/goal.glb" id="1_8tq3u"]
+[ext_resource type="Script" uid="uid://cyr6rxfsaahfc" path="res://gameplay/goal.gd" id="1_t8vge"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g4v7s"]
+height = 10.14563
+radius = 8.364
+
+[node name="Goal" type="Area3D" unique_id=249370830]
+script = ExtResource("1_t8vge")
+
+[node name="goal" parent="." unique_id=1813362274 instance=ExtResource("1_8tq3u")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1918604320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.0459595, 0)
+shape = SubResource("CylinderShape3D_g4v7s")
+
+[node name="Timer" type="Timer" parent="." unique_id=557919438]
+wait_time = 3.0
+one_shot = true
+
+[node name="Label3D" type="Label3D" parent="." unique_id=2045185300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8243995, 0)
+billboard = 1
+text = "5"
+font_size = 842

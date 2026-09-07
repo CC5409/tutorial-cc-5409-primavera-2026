@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://sejabyy3h7je"]
+
+[ext_resource type="Script" uid="uid://dokxdg6kai5ss" path="res://ui/level_card.gd" id="1_oooiu"]
+[ext_resource type="Texture2D" uid="uid://b8jnm0bs5kc08" path="res://icon.svg" id="1_xmt4h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
+bg_color = Color(0.186459, 0.18645903, 0.18645903, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf5fn"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_2db0o"]
+font_size = 32
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[node name="LevelCard" type="Button" unique_id=636783833]
+clip_children = 2
+custom_minimum_size = Vector2(200, 100)
+offset_right = 200.0
+offset_bottom = 100.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_g4v7s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yf5fn")
+script = ExtResource("1_oooiu")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=147067818]
+self_modulate = Color(1, 1, 1, 0.91764706)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 100.0
+texture = ExtResource("1_xmt4h")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="TextureRect" unique_id=885154257]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "level 01"
+label_settings = SubResource("LabelSettings_2db0o")
+horizontal_alignment = 1
+vertical_alignment = 1
