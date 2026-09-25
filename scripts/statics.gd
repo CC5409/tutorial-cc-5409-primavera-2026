@@ -28,18 +28,25 @@ static func get_role_name(role: Role) -> String:
 
 
 class PlayerData:
+	signal coins_changed(value: int)
+	
 	var id: int
 	var name: String
 	# Position relative to other players
 	var index: int = -1
 	var role: Role
 	var vote: bool = false
+	var coins: int:
+		set(value):
+			coins = value
+			coins_changed.emit(coins)
 	
 	func _init(new_id: int, new_name: String, new_index: int = -1, new_role: Role = Role.NONE) -> void:
 		id = new_id
 		name = new_name
 		index = new_index
 		role = new_role
+		coins = 0
 	
 	func _to_string() -> String:
 		return "Player: {id: %d, name: %s, index: %d, role: %d}" % [id, name, index, Statics.get_role_name(role)]
@@ -50,12 +57,14 @@ class PlayerData:
 			"name": name,
 			"index": index,
 			"role": role,
-			"vote": vote
+			"vote": vote,
+			"coins": coins
 		}
 	
 	static func from_dict(data: Dictionary) -> PlayerData:
 		var player: PlayerData = PlayerData.new(data.id, data.name, data.index, data.role)
 		player.vote = data.vote
+		player.coins = data.coins
 		return player
 	
 	func update(player_data: PlayerData) -> void:
@@ -65,3 +74,4 @@ class PlayerData:
 		index = player_data.index
 		role = player_data.role
 		vote = player_data.vote
+		coins = player_data.coins

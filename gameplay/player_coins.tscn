@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dseeom5f4qics"]
+
+[ext_resource type="Script" uid="uid://bb1776j2cfmlg" path="res://gameplay/player_coins.gd" id="1_l031r"]
+
+[node name="PlayerCoins" type="HBoxContainer" unique_id=866217037]
+script = ExtResource("1_l031r")
+
+[node name="NameLabel" type="Label" parent="." unique_id=272858777]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Playerasd"
+
+[node name="Label" type="Label" parent="." unique_id=1899890335]
+layout_mode = 2
+text = ": "
+
+[node name="CoinsLabel" type="Label" parent="." unique_id=1556592413]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "22"
+horizontal_alignment = 2

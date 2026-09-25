@@ -3,7 +3,9 @@ extends Node
 
 var player_index: int = 1
 
+
 @onready var start_game_timer: Timer = $StartGameTimer
+
 
 func _ready() -> void:
 	for i: int in Game.instance.test_players.size():

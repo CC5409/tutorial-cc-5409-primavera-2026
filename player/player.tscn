@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://djs71plartett" path="res://input_synchronizer.tscn" id="2_rkbax"]
 [ext_resource type="PackedScene" uid="uid://c4h172mhuk5un" path="res://assets/turtle.glb" id="4_qjkh3"]
 [ext_resource type="AnimationLibrary" uid="uid://r02f3b4immhn" path="res://assets/turtle_animations.glb" id="5_g6k8r"]
+[ext_resource type="PackedScene" uid="uid://bde08pb5mnxfj" path="res://gameplay/hud.tscn" id="6_g6k8r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 
@@ -115,3 +116,5 @@ root_node = NodePath("../Model/turtle")
 tree_root = SubResource("AnimationNodeStateMachine_g4v7s")
 anim_player = NodePath("../Model/turtle/AnimationPlayer")
 parameters/locomotion/blend_position = 2.3854396
+
+[node name="HUD" parent="." unique_id=320800409 instance=ExtResource("6_g6k8r")]

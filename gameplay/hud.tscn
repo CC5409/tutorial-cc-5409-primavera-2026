@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bde08pb5mnxfj"]
+
+[ext_resource type="Script" uid="uid://chtee3low5m5x" path="res://gameplay/hud.gd" id="1_eky44"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eky44"]
+bg_color = Color(0.6, 0.6, 0.6, 0.827451)
+
+[node name="HUD" type="CanvasLayer" unique_id=1819626483]
+script = ExtResource("1_eky44")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1349046522]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -110.0
+offset_bottom = 119.0
+grow_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=2120241287]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eky44")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer" unique_id=1709579265]
+layout_mode = 2
+
+[node name="PlayerCoinsContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer" unique_id=1488717088]
+unique_name_in_owner = true
+layout_mode = 2

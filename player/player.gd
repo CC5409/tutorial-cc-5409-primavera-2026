@@ -20,6 +20,7 @@ extends CharacterBody3D
 @onready var bullet_spawn_marker: Marker3D = $Model/MeshInstance3D2/BulletSpawnMarker
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
+@onready var hud: CanvasLayer = $HUD
 
 
 func _ready() -> void:
@@ -29,6 +30,7 @@ func _ready() -> void:
 	var player_data: Statics.PlayerData = Game.instance.get_player(get_multiplayer_authority())
 	label_3d.text = player_data.name
 	camera_3d.current = is_multiplayer_authority()
+	hud.visible = is_multiplayer_authority()
 	if is_multiplayer_authority():
 		sync_timer.start()
 

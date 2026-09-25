@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b8jnm0bs5kc08" path="res://icon.svg" id="1_g685p"]
 [ext_resource type="PackedScene" uid="uid://bv6q5jslojit2" path="res://gameplay/tower.tscn" id="2_8yqd8"]
 [ext_resource type="PackedScene" uid="uid://dvqttrcd1b5i" path="res://player/player.tscn" id="2_h518d"]
+[ext_resource type="PackedScene" uid="uid://du4ksj88bj6dr" path="res://gameplay/coin.tscn" id="5_didps"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gg43x"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -70,3 +71,12 @@ spawn_path = NodePath("../Players")
 
 [node name="Tower" parent="." unique_id=1993968151 instance=ExtResource("2_8yqd8")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.84973955, 0.110967755, -0.3957758)
+
+[node name="Coin" parent="." unique_id=956355466 instance=ExtResource("5_didps")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.4242525, 0.5, 8.822928)
+
+[node name="Coin2" parent="." unique_id=1294447539 instance=ExtResource("5_didps")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.58016, 0.5, -0.23224068)
+
+[node name="Coin3" parent="." unique_id=1700761004 instance=ExtResource("5_didps")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.725151, 0.5, 1.4138556)

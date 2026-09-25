@@ -1,6 +1,9 @@
 class_name Game
 extends Node
 
+const SAVE_PATH = "user://game.save"
+const CONFIG_PATH = "user://game.cfg"
+
 signal players_updated
 signal player_updated(id: int)
 signal vote_updated(id: int)
@@ -31,7 +34,7 @@ var _is_window_small: bool = false
 var _initial_window_scale_mode: Window.ContentScaleMode
 var _initial_window_scale_aspect: Window.ContentScaleAspect
 
-@onready var player_id: Label = %PlayerId
+@onready var player_id_label: Label = %PlayerIdLabel
 
 func _enter_tree() -> void:
 	instance = self
@@ -46,7 +49,11 @@ func _ready() -> void:
 	
 	if not OS.is_debug_build():
 		multiplayer_test = false
-		player_id.hide()
+		player_id_label.hide()
+	
+	if not FileAccess.file_exists(CONFIG_PATH):
+		save_config()
+	load_config()
 
 
 func sort_players() -> void:
@@ -91,6 +98,13 @@ func get_player(id: int) -> Statics.PlayerData:
 
 func get_current_player() -> Statics.PlayerData:
 	return get_player(multiplayer.get_unique_id())
+
+
+func get_player_by_name(player_name: String) -> Statics.PlayerData:
+	for player: Statics.PlayerData in players:
+		if player.name == player_name:
+			return player
+	return null
 
 
 @rpc("reliable")
@@ -144,15 +158,78 @@ func update_player_id() -> void:
 	if not OS.is_debug_build():
 		return
 	if Debug.is_online():
-		player_id.show()
-		player_id.text = str(multiplayer.get_unique_id())
+		player_id_label.show()
+		player_id_label.text = str(multiplayer.get_unique_id())
 	else:
-		player_id.hide()
+		player_id_label.hide()
 
 
 func reset_window_scale() -> void:
 	get_window().content_scale_mode = _initial_window_scale_mode
 	get_window().content_scale_aspect = _initial_window_scale_aspect
+
+
+func add_coins(player_id: int, amount: int) -> void:
+	if not multiplayer.is_server():
+		return
+	var player_data: Statics.PlayerData = get_player(player_id)
+	player_data.coins += amount
+	coins_broadcast.rpc(player_id, player_data.coins)
+
+
+@rpc()
+func coins_broadcast(player_id: int, coins: int) -> void:
+	var player_data: Statics.PlayerData = get_player(player_id)
+	player_data.coins = coins
+
+
+func save_game() -> void:
+	var dict: Dictionary = {
+		"level": 1,
+		"players": {}
+	}
+	
+	for player_data: Statics.PlayerData in players:
+		dict.players[player_data.name] = {
+			"coins": player_data.coins
+		}
+	
+	var string: String = JSON.stringify(dict)
+	var file: FileAccess = FileAccess.open_encrypted_with_pass(SAVE_PATH, FileAccess.WRITE, "1234")
+	file.store_string(string)
+	file.close()
+
+
+func load_game() -> void:
+	var file: FileAccess = FileAccess.open_encrypted_with_pass(SAVE_PATH, FileAccess.READ, "1234")
+	var string: String = file.get_as_text()
+	file.close()
+	var dict: Dictionary = JSON.parse_string(string)
+	for key: String in dict.players:
+		var player_data: Statics.PlayerData = get_player_by_name(key)
+		if not player_data:
+			continue
+		player_data.coins = dict.players[key].coins
+		coins_broadcast.rpc(player_data.id, dict.players[key].coins)
+
+
+func save_config() -> void:
+	var config_file: ConfigFile = ConfigFile.new()
+	config_file.set_value("Video", "fullscreen", get_window().mode == Window.MODE_FULLSCREEN)
+	config_file.set_value("Audio", "music", AudioServer.get_bus_volume_linear(AudioServer.get_bus_index("Music")))
+	config_file.set_value("Audio", "sfx", AudioServer.get_bus_volume_linear(AudioServer.get_bus_index("SFX")))
+	config_file.save(CONFIG_PATH)
+
+
+func load_config() -> void:
+	var config_file: ConfigFile = ConfigFile.new()
+	var err: Error = config_file.load(CONFIG_PATH)
+	if err != OK:
+		return
+	get_window().mode = Window.MODE_FULLSCREEN if config_file.get_value("Video", "fullscreen", false) else Window.MODE_WINDOWED
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Music"), config_file.get_value("Audio", "music"))
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("SFX"), config_file.get_value("Audio", "sfx"))
+
 
 
 func _handle_size_changed() -> void:

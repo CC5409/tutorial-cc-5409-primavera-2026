@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bv6q5jslojit2" path="res://gameplay/tower.tscn" id="2_81a5f"]
 [ext_resource type="PackedScene" uid="uid://dvqttrcd1b5i" path="res://player/player.tscn" id="2_gg43x"]
 [ext_resource type="PackedScene" uid="uid://ck3vwoj1k5mte" path="res://gameplay/goal.tscn" id="5_mllcm"]
+[ext_resource type="PackedScene" uid="uid://du4ksj88bj6dr" path="res://gameplay/coin.tscn" id="6_q7ibo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gg43x"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -73,3 +74,18 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.84
 
 [node name="Goal" parent="." unique_id=249370830 instance=ExtResource("5_mllcm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.17668, 0, -6.9891396)
+
+[node name="Coin" parent="." unique_id=956355466 instance=ExtResource("6_q7ibo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.706442, 1, 10.230817)
+
+[node name="Coin2" parent="." unique_id=1202800390 instance=ExtResource("6_q7ibo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.422176, 0.5, 9.810289)
+
+[node name="Coin4" parent="." unique_id=1902048229 instance=ExtResource("6_q7ibo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2664175, 0.5, 12.724926)
+
+[node name="Coin5" parent="." unique_id=1238496504 instance=ExtResource("6_q7ibo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.049224, 0.5, 12.955186)
+
+[node name="Coin3" parent="." unique_id=949902249 instance=ExtResource("6_q7ibo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.209686, 0.5, 16.559252)
