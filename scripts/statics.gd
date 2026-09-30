@@ -36,6 +36,7 @@ class PlayerData:
 	var index: int = -1
 	var role: Role
 	var vote: bool = false
+	var instance: Player
 	var coins: int:
 		set(value):
 			coins = value

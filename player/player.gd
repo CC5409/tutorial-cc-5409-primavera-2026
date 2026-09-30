@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody3D
 
+signal health_changed(value: float)
+
 @export var move_speed: float = 5
 @export var jump_speed: float = 7
 @export var acceleration: float = 20
@@ -21,6 +23,7 @@ extends CharacterBody3D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 @onready var hud: CanvasLayer = $HUD
+@onready var health_component: HealthComponent = $HealthComponent
 
 
 func _ready() -> void:
@@ -33,7 +36,8 @@ func _ready() -> void:
 	hud.visible = is_multiplayer_authority()
 	if is_multiplayer_authority():
 		sync_timer.start()
-
+	health_component.health_changed.connect(func(value: float) -> void: health_changed.emit(value))
+	player_data.instance = self
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("test"):

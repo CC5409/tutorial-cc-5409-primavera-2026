@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c4h172mhuk5un" path="res://assets/turtle.glb" id="4_qjkh3"]
 [ext_resource type="AnimationLibrary" uid="uid://r02f3b4immhn" path="res://assets/turtle_animations.glb" id="5_g6k8r"]
 [ext_resource type="PackedScene" uid="uid://bde08pb5mnxfj" path="res://gameplay/hud.tscn" id="6_g6k8r"]
+[ext_resource type="Script" uid="uid://4kquxydridiq" path="res://components/hurtbox_component.gd" id="7_rgyib"]
+[ext_resource type="Script" uid="uid://bqx5d2ssgttro" path="res://components/health_component.gd" id="8_hg6s5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 
@@ -60,6 +62,18 @@ states/walk/node = SubResource("AnimationNodeAnimation_g6k8r")
 states/walk/position = Vector2(647.60004, 129.752)
 transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_rgyib"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_hg6s5"), "Start", "locomotion", SubResource("AnimationNodeStateMachineTransition_qjkh3")]
 graph_offset = Vector2(105, 42)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yf5fn"]
+radius = 0.57421875
+height = 2.0786133
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rgyib"]
+properties/0/path = NodePath("HealthComponent:health")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("HealthComponent:max_health")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [node name="Player" type="CharacterBody3D" unique_id=1833661411]
 script = ExtResource("1_oul6g")
@@ -118,3 +132,21 @@ anim_player = NodePath("../Model/turtle/AnimationPlayer")
 parameters/locomotion/blend_position = 2.3854396
 
 [node name="HUD" parent="." unique_id=320800409 instance=ExtResource("6_g6k8r")]
+
+[node name="HurtboxComponent" type="Area3D" parent="." unique_id=624361772 node_paths=PackedStringArray("health_component")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_rgyib")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://4kquxydridiq"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=295239603]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0393066, 0)
+shape = SubResource("CapsuleShape3D_yf5fn")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1850407461]
+script = ExtResource("8_hg6s5")
+metadata/_custom_type_script = "uid://bqx5d2ssgttro"
+
+[node name="StatsSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1695059821]
+replication_config = SubResource("SceneReplicationConfig_rgyib")

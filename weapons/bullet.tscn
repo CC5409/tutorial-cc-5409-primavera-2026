@@ -12,7 +12,7 @@ bottom_radius = 0.025
 height = 0.10101318
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dqcar"]
-radius = 0.05
+radius = 0.10444274
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fc8e7"]
 properties/0/path = NodePath(".:position")
@@ -22,8 +22,12 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 0
 
-[node name="Bullet" type="Area3D" unique_id=1905881582]
+[node name="Bullet" type="Area3D" unique_id=1747688077]
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_fc8e7")
+damage = 100.0
+metadata/_custom_type_script = "uid://bq0oiejyd05n3"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=439992422]
 mesh = SubResource("SphereMesh_yf5fn")

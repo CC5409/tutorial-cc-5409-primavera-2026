@@ -1,4 +1,4 @@
-extends Area3D
+extends HitboxComponent
 
 
 @export var move_speed: float = 3

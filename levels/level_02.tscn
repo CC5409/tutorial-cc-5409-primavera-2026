@@ -27,7 +27,7 @@ size = Vector2(100, 100)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j0sdw"]
 
-[node name="Level01" type="Node3D" unique_id=635756586]
+[node name="Level02" type="Node3D" unique_id=635756586]
 script = ExtResource("1_8yqd8")
 player_scene = ExtResource("2_h518d")
 

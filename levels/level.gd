@@ -23,4 +23,5 @@ func _spawn_player(data: Dictionary) -> Node:
 	player_inst.name = str(player_data.id)
 	var spawn_point: Node3D = spawn_points.get_child(player_data.index)
 	player_inst.position = spawn_point.global_position
+	#player_data.instance = player_inst
 	return player_inst
