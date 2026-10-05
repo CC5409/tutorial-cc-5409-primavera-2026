@@ -10,6 +10,7 @@ signal health_changed(value: float)
 @export var camera_min_pitch: float = -20
 @export var camera_max_pitch: float = 30
 @export var bullet_scene: PackedScene
+@export var muzzle_particles_scene: PackedScene
 
 
 @onready var spring_arm_3d: SpringArm3D = $SpringArm3D
@@ -136,4 +137,10 @@ func _spawn_bullet(data: Dictionary) -> Node:
 	bullet_inst.position = data.pos
 	bullet_inst.rotation = data.rot
 	bullet_inst.set_multiplayer_authority(get_multiplayer_authority())
+	
+	if muzzle_particles_scene:
+		var muzzle_particles_inst: Node3D = muzzle_particles_scene.instantiate()
+		get_tree().root.add_child(muzzle_particles_inst)
+		muzzle_particles_inst.global_transform = bullet_spawn_marker.global_transform
+	
 	return bullet_inst

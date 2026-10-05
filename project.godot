@@ -39,6 +39,10 @@ gdscript/warnings/unsafe_method_access=1
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/brackeys_particle_controls/plugin.cfg")
+
 [gui]
 
 theme/custom="uid://81pelsnjcngj"

@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://8harthg82yuh"]
+
+[ext_resource type="Script" uid="uid://c2rs0uqu23ci3" path="res://request_example.gd" id="1_2rh81"]
+
+[node name="RequestExample" type="Control" unique_id=1801972555]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2rh81")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1476621052]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -73.0
+offset_right = 93.5
+offset_bottom = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=368717621]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=611654466]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=268553188]
+layout_mode = 2
+text = "Cat Fact"
+horizontal_alignment = 1
+
+[node name="Fact" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2129869890]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 2
+
+[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=56446541]

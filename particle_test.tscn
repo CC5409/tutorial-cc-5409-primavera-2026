@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://becvevj7dqbar"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57qmd"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="Gradient" id="Gradient_d7w5y"]
+offsets = PackedFloat32Array(0, 0.25875485, 1)
+colors = PackedColorArray(0.95, 0, 0, 1, 0.23, 0, 0, 1, 9.3854965e-07, 0, 0.4093775, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3gngh"]
+gradient = SubResource("Gradient_d7w5y")
+
+[sub_resource type="Curve" id="Curve_j317t"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.12406014, 0.65000004), 0.0, 0.0, 0, 0, Vector2(0.31954885, 0.675), 0.0, 0.0, 0, 0, Vector2(0.6428571, 0.52500004), 0.0, 0.0, 0, 0, Vector2(1, 0.041666746), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_yf5fn"]
+curve = SubResource("Curve_j317t")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iev7b"]
+particle_flag_align_y = true
+emission_shape = 2
+emission_sphere_radius = 18.65
+direction = Vector3(1, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = 49.85
+tangential_accel_max = 75.96
+scale_min = 5.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_yf5fn")
+color_ramp = SubResource("GradientTexture1D_3gngh")
+turbulence_enabled = true
+collision_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g4v7s"]
+top_radius = 0.0
+
+[node name="ParticleTest" type="Node3D" unique_id=599728555]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=545669628]
+material_override = SubResource("StandardMaterial3D_57qmd")
+emitting = false
+amount = 400
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_iev7b")
+draw_pass_1 = SubResource("BoxMesh_g4v7s")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="." unique_id=1452996684]
+material_override = SubResource("StandardMaterial3D_57qmd")
+emitting = false
+amount = 400
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_iev7b")
+draw_pass_1 = SubResource("CylinderMesh_g4v7s")

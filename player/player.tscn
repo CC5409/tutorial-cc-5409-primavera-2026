@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c0mfssq7djyfi" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="PackedScene" uid="uid://b6twwagl0nbht" path="res://weapons/bullet.tscn" id="2_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://djs71plartett" path="res://input_synchronizer.tscn" id="2_rkbax"]
+[ext_resource type="PackedScene" uid="uid://c81spjueltx6j" path="res://particles/muzzle_particle.tscn" id="3_hg6s5"]
 [ext_resource type="PackedScene" uid="uid://c4h172mhuk5un" path="res://assets/turtle.glb" id="4_qjkh3"]
 [ext_resource type="AnimationLibrary" uid="uid://r02f3b4immhn" path="res://assets/turtle_animations.glb" id="5_g6k8r"]
 [ext_resource type="PackedScene" uid="uid://bde08pb5mnxfj" path="res://gameplay/hud.tscn" id="6_g6k8r"]
@@ -78,6 +79,7 @@ properties/1/replication_mode = 2
 [node name="Player" type="CharacterBody3D" unique_id=1833661411]
 script = ExtResource("1_oul6g")
 bullet_scene = ExtResource("2_g1dw6")
+muzzle_particles_scene = ExtResource("3_hg6s5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=377414407]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
