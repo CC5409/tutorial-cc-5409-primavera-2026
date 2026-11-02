@@ -20,11 +20,12 @@ signal health_changed(value: float)
 @onready var sync_timer: Timer = $SyncTimer
 @onready var model: Node3D = $Model
 @onready var bullet_spawner: MultiplayerSpawner = $BulletSpawner
-@onready var bullet_spawn_marker: Marker3D = $Model/MeshInstance3D2/BulletSpawnMarker
+@onready var bullet_spawn_marker: Marker3D = %BulletSpawnMarker
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 @onready var hud: CanvasLayer = $HUD
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var physical_bone_simulator_3d: PhysicalBoneSimulator3D = $Model/turtle/Skeleton3D/PhysicalBoneSimulator3D
 
 
 func _ready() -> void:
@@ -39,6 +40,7 @@ func _ready() -> void:
 		sync_timer.start()
 	health_component.health_changed.connect(func(value: float) -> void: health_changed.emit(value))
 	player_data.instance = self
+	physical_bone_simulator_3d.physical_bones_start_simulation(["tail", "head"])
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("test"):
@@ -75,7 +77,7 @@ func test() -> void:
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
 		if Input.is_action_just_pressed("fire"):
-			_fire()
+			_fire_prep.rpc()
 	
 	
 	if not is_on_floor():
@@ -129,6 +131,20 @@ func _fire() -> void:
 		"rot": bullet_spawn_marker.global_rotation
 	})
 
+@rpc("call_local")
+func _fire_prep() -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(physical_bone_simulator_3d, "influence", 0, 0.2)
+	await tween.finished
+	if is_multiplayer_authority():
+		_fire()
+	tween = create_tween()
+	physical_bone_simulator_3d.physical_bones_stop_simulation()
+	physical_bone_simulator_3d.physical_bones_start_simulation(["tail", "head"])
+	tween.tween_property(physical_bone_simulator_3d, "influence", 1, 0.4)
+	await tween.finished
+	
+
 
 func _spawn_bullet(data: Dictionary) -> Node:
 	if not bullet_scene:
@@ -142,5 +158,4 @@ func _spawn_bullet(data: Dictionary) -> Node:
 		var muzzle_particles_inst: Node3D = muzzle_particles_scene.instantiate()
 		get_tree().root.add_child(muzzle_particles_inst)
 		muzzle_particles_inst.global_transform = bullet_spawn_marker.global_transform
-	
 	return bullet_inst
